@@ -1,0 +1,71 @@
+package edu.citytech.financial.service;
+
+import org.springframework.stereotype.Service;
+
+
+
+@Service
+public class MarginalTaxCalculator {
+    static int [] first = {0, 10275, 41775, 89075, 170050, 215950, 539900};
+    static int [] second = {0, 20550, 83550, 178150, 340100, 431900, 647850};
+    static int [] third = {0, 14650, 55900, 89050, 170000, 215950, 539900};
+    static double [] percent = {.10, .12, .22, .24, .32, .35, .37};
+    static int[] list;
+    public static float calculate(Object string, float salary) {
+        double total = 0;
+        float[] brackets;
+        if (string.equals("S")) {
+            list = first;
+        } else if (string.equals("MFJ")) {
+            list = second;
+        } else if (string.equals("HH")) {
+            list = third;
+        } else {
+            throw new IllegalArgumentException("Invalid tax code");
+        }
+
+        int b = 1;
+
+        for (int i = 0; i < list.length; i++) {
+            double tax = 0;
+
+            if (salary > list[b]) {
+                tax = (list[b] - list[i]) * percent[i];
+                total += tax;
+                b += 1;
+            } else {
+                total += (salary - list[i]) * percent[i];
+                break;
+            }
+        }
+        return (float) total;
+    }
+
+    private static float getTaxRate(int a) {
+         {
+            switch (a) {
+                case 0:
+                    return 0.1f;
+                case 1:
+                    return 0.12f;
+                case 2:
+                    return 0.22f;
+                case 3:
+                    return 0.24f;
+                case 4:
+                    return 0.32f;
+                case 5:
+                    return 0.35f;
+                case 6:
+                    return 0.37f;
+                default:
+                    return 0;
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        System.out.println(calculate("S",150000));
+    }
+
+}
