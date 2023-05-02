@@ -2,6 +2,7 @@ package edu.citytech.financial;
 
 import edu.citytech.financial.service.MarginalTaxCalculatorService;
 
+import edu.citytech.financial.utility.EnvironmentVariableUtility;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -11,10 +12,14 @@ public class T3_ScratchPad {
     @Test
     @DisplayName("tax t1")
     public void t1(){
-        float taxPaid = MarginalTaxCalculatorService.calculate("S", 30_000, System.out::println);
-
+        float taxPaid = MarginalTaxCalculatorService.calculate("S", 10_275, System.out::println);
         System.out.println("taxPaid: " + taxPaid);
+    }
 
+    @Test
+    @DisplayName("env util")
+    public void t2(){
+        EnvironmentVariableUtility.getVariables(System.out::println);
     }
 }
 
